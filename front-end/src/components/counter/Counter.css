@@ -1,0 +1,13 @@
+.counterButton {
+  font-size: 30px;
+  background-color: #00a5ab;
+}
+
+.count {
+  font-size: 50px;
+}
+
+.totalCount {
+  font-size: 150px;
+  color:#00a5ab;
+}
