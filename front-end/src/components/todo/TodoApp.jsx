@@ -5,21 +5,23 @@ import "./TodoApp.css";
 export default function TodoApp() {
   return (
     <div className="TodoApp">
-      <HeaderComponent />
 
       <BrowserRouter>
+        <HeaderComponent />
+
         <Routes>
           <Route path="/" element={<LoginComponent />} />
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/welcome/:username" element={<WelcomeComponent />} />
           <Route path="/todos" element={<ListTodosComponent />} />
-          <Route path='/logout' element={<LogoutComponent /> } />
+          <Route path='/logout' element={<LogoutComponent />} />
 
           <Route path="*" element={<ErrorComponent />} />
         </Routes>
-      </BrowserRouter>
 
-      <FooterComponent />
+        <FooterComponent />
+
+      </BrowserRouter>
     </div>
   );
 }
@@ -99,8 +101,6 @@ function WelcomeComponent() {
     <div className="WelcomeComponent">
       <h1>Welcome {username}</h1>
       <div>
-        {/* <a href="/todos"></a>   =>  刷新一整个页面*/}
-        {/* <Link to="/todos"></Link>   =>  只刷新组件*/}
         Manage your todos - <Link to="/todos">Go here</Link>
       </div>
     </div>
@@ -124,7 +124,7 @@ function ListTodosComponent() {
     <div className="ListTodosComponent">
       <h1>Things You Want To Do!</h1>
       <div>
-        <table>
+        <table className="table">
           <thead>
             <tr>
               <td>ID</td>
@@ -156,17 +156,35 @@ function ListTodosComponent() {
 
 function HeaderComponent() {
   return (
-    <div className="header">
-      Header <hr />
-    </div>
+    <header className="border-bottom border-light border-5 mb-5 p-2">
+      <div className="container">
+        <div className="row">
+          <nav className="navbar navbar-expand-lg">
+            <div className="collapse navbar-collapse">
+              <ul className="navbar-nav">
+                <li className="nav-item fs-5"><Link className="nav-link" to="/welcome/in28minutes">Home</Link></li>
+                <li className="nav-item fs-5"><Link className="nav-link" to="/todos">Todos</Link></li>
+              </ul>
+            </div>
+            <ul className="navbar-nav">
+              <li className="nav-item fs-5"><Link className="nav-link" to="/login">Login</Link></li>
+              <li className="nav-item fs-5"><Link className="nav-link" to="/logout">Logout</Link></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
   )
 }
 
 function FooterComponent() {
   return (
-    <div className="footer">
-      <hr /> Footer
-    </div>
+    <footer className="footer">
+      <div className="container">
+        Your Footer
+      </div>
+    </footer>
   )
 }
 
