@@ -1,20 +1,25 @@
 import { useState } from "react";
-import {BrowserRouter, Routes, Route, useNavigate, useParams, Link} from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate, useParams, Link } from 'react-router-dom'
 import "./TodoApp.css";
 
 export default function TodoApp() {
   return (
     <div className="TodoApp">
+      <HeaderComponent />
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginComponent />} />
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/welcome/:username" element={<WelcomeComponent />} />
           <Route path="/todos" element={<ListTodosComponent />} />
+          <Route path='/logout' element={<LogoutComponent /> } />
 
           <Route path="*" element={<ErrorComponent />} />
         </Routes>
       </BrowserRouter>
+
+      <FooterComponent />
     </div>
   );
 }
@@ -88,17 +93,17 @@ function LoginComponent() {
 
 function WelcomeComponent() {
 
-  const {username } = useParams()
+  const { username } = useParams()
 
   return (
-      <div className="WelcomeComponent">
-          <h1>Welcome {username}</h1>
-          <div>
-              {/* <a href="/todos"></a>   =>  刷新一整个页面*/}
-              {/* <Link to="/todos"></Link>   =>  只刷新组件*/}
-              Manage your todos - <Link to="/todos">Go here</Link>
-          </div>
+    <div className="WelcomeComponent">
+      <h1>Welcome {username}</h1>
+      <div>
+        {/* <a href="/todos"></a>   =>  刷新一整个页面*/}
+        {/* <Link to="/todos"></Link>   =>  只刷新组件*/}
+        Manage your todos - <Link to="/todos">Go here</Link>
       </div>
+    </div>
   )
 }
 
@@ -148,6 +153,31 @@ function ListTodosComponent() {
     </div>
   )
 }
+
+function HeaderComponent() {
+  return (
+    <div className="header">
+      Header <hr />
+    </div>
+  )
+}
+
+function FooterComponent() {
+  return (
+    <div className="footer">
+      <hr /> Footer
+    </div>
+  )
+}
+
+function LogoutComponent() {
+  return (
+    <div className="LogoutComponent">
+      <h1>You are logged out!</h1>
+    </div>
+  )
+}
+
 
 function ErrorComponent() {
   return (
