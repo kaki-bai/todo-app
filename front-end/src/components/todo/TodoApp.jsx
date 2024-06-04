@@ -26,6 +26,7 @@ export default function TodoApp() {
             <Route path="*" element={<ErrorComponent />} />
           </Routes>
 
+          {/* <FooterComponent /> */}
         </BrowserRouter>
       </AuthProvider>
     </div>
