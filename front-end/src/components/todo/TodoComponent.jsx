@@ -9,7 +9,7 @@ export default function TodoComponent() {
   const { id } = useParams()
 
   const [description, setDescription] = useState('')
-  const[targetDate, setTargetDate] = useState('')
+  const [targetDate, setTargetDate] = useState('')
 
   const authContext = useAuth()
 
@@ -32,7 +32,24 @@ export default function TodoComponent() {
 
   function onSubmit(values) {
     console.log(values)
-}
+  }
+
+  function validate(values) {
+    let errors = {
+      // description: 'Enter a valid description',
+      // targetDate: 'Enter a valid target date'
+    }
+
+    if (values.description.length < 5) {
+      errors.description = 'Enter at least 5 characters'
+    }
+
+    if (values.targetDate == null) {
+      errors.targetDate = 'Enter a target date'
+    }
+
+    return errors
+  }
 
   return (
     <div className="container">
@@ -41,6 +58,9 @@ export default function TodoComponent() {
         <Formik initialValues={{ description, targetDate }}
           enableReinitialize={true}
           onSubmit={onSubmit}
+          validate={validate}
+          validateOnChange={false}
+          validateOnBlur={false}
         >
           {
             (props) => (
