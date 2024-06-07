@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { retrieveTodoApi } from './api/TodoApiService'
+import { useParams, useNavigate } from 'react-router-dom'
+import { retrieveTodoApi, updateTodoApi } from './api/TodoApiService'
 import { useAuth } from './security/AuthContext'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
@@ -12,6 +12,7 @@ export default function TodoComponent() {
   const [targetDate, setTargetDate] = useState('')
 
   const authContext = useAuth()
+  const navigate = useNavigate()
 
   const username = authContext.username
 
@@ -32,13 +33,25 @@ export default function TodoComponent() {
 
   function onSubmit(values) {
     console.log(values)
-  }
+    const todo = {
+        id: id,
+        username: username,
+        description: values.description,
+        targetDate: values.targetDate,
+        done: false
+    }
+    
+    console.log(todo)
+
+    updateTodoApi(username, id, todo)
+    .then(response => {
+        navigate('/todos')
+    })
+    .catch(error => console.log(error))
+}
 
   function validate(values) {
-    let errors = {
-      // description: 'Enter a valid description',
-      // targetDate: 'Enter a valid target date'
-    }
+    let errors = {}
 
     if (values.description.length < 5) {
       errors.description = 'Enter at least 5 characters'
